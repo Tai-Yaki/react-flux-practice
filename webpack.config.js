@@ -4,7 +4,7 @@ let path = require('path');
 
 module.exports = {
   context: path.join(__dirname, "src"),
-  entry: "./js/client.js",
+  entry: "./js/client.jsx",
   module: {
     rules: [
       {
@@ -14,7 +14,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             plugins: ['react-html-attrs'],
-            presets: ['@babel/presets-react', '@babel/preset-env']
+            presets: ['@babel/preset-react', '@babel/preset-env']
           }
         }]
       },
