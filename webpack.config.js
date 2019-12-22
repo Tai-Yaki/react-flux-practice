@@ -31,7 +31,7 @@ module.exports = {
     filename: "client.min.js",
     publicPath: '/'
   },
-  debServer: {
+  devServer: {
     historyApiFallback: true
   },
   plugins: debug ? [] : [
