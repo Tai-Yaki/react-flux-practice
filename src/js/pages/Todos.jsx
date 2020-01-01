@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Todo from '../components/Todo';
+import TodoStore from '../stores/TodoStore';
 
 const Todos = () => {
-  const todos = [
-    {
-      id: 918274822,
-      text: '勉強する',
-      complete: false,
-    },
-    {
-      id: 391835039,
-      text: '参考書を買いに行く',
-      complete: false,
-    },
-  ];
+  const [todos, setTodos] = useState(TodoStore.getAll());
+
+  useEffect(() => {
+    TodoStore.on('change', () => {
+      setTodos(TodoStore.getAll());
+    });
+  }, []);
 
   const TodoList = todos.map((todo) => (
     <Todo key={todo.id} text={todo.text} complete={todo.complete} />
