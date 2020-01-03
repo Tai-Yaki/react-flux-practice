@@ -1,27 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Todo from '../components/Todo';
+import * as TodoActions from '../actions/TodoActions';
 import TodoStore from '../stores/TodoStore';
 
-const Todos = () => {
-  const [todos, setTodos] = useState(TodoStore.getAll());
+export default class Todos extends React.Component {
+  static createTodo() {
+    TodoActions.createTodo('New Todo');
+  }
 
-  useEffect(() => {
+  constructor() {
+    super();
+    this.state = {
+      todos: TodoStore.getAll(),
+    };
+  }
+
+  componentDidMount() {
     TodoStore.on('change', () => {
-      setTodos(TodoStore.getAll());
+      this.setState({
+        todos: TodoStore.getAll(),
+      });
     });
-  }, []);
+  }
 
-  const TodoList = todos.map((todo) => (
-    <Todo key={todo.id} text={todo.text} complete={todo.complete} />
-  ));
+  render() {
+    const { todos } = this.state;
 
-  return (
-    <div>
-      <h1>Todoリスト</h1>
-      <ul>{ TodoList }</ul>
-    </div>
-  );
-};
+    const TodoComponents = todos.map((todo) => (
+      <Todo key={todo.id} text={todo.text} complete={todo.complete} />
+    ));
 
-export default Todos;
+    return (
+      <div>
+        <button type="button" onClick={() => Todos.createTodo()}>Create!</button>
+        <h1>Todos</h1>
+        <ul>{TodoComponents}</ul>
+      </div>
+    );
+  }
+}
