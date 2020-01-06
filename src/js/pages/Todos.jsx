@@ -27,8 +27,17 @@ export default class Todos extends React.Component {
   render() {
     const { todos } = this.state;
 
+    const handleClickIcon = (id) => {
+      TodoActions.completeTodo(id);
+    };
+
     const TodoComponents = todos.map((todo) => (
-      <Todo key={todo.id} text={todo.text} complete={todo.complete} />
+      <Todo
+        key={todo.id}
+        text={todo.text}
+        complete={todo.complete}
+        handleClickIcon={() => { handleClickIcon(todo.id); }}
+      />
     ));
 
     return (
