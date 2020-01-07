@@ -31,6 +31,12 @@ class TodoStore extends EventEmitter {
     this.emit('change');
   }
 
+  completeTodo(id) {
+    this.todos.find((todo) => todo.id === id).complete = true;
+
+    this.emit('change');
+  }
+
   getAll() {
     return this.todos;
   }
@@ -41,7 +47,10 @@ class TodoStore extends EventEmitter {
         this.createTodo(action.text);
         break;
       }
-
+      case 'COMPLETE_TODO': {
+        this.completeTodo(action.id);
+        break;
+      }
       default: {
         console.log('default');
       }
