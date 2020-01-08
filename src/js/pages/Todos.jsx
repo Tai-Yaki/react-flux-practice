@@ -27,8 +27,12 @@ export default class Todos extends React.Component {
   render() {
     const { todos } = this.state;
 
-    const handleClickIcon = (id) => {
+    const handleClickComplete = (id) => {
       TodoActions.completeTodo(id);
+    };
+
+    const handleClickFavorite = (id, favorite) => {
+      TodoActions.favoriteTodo(id, !favorite);
     };
 
     const TodoComponents = todos.map((todo) => (
@@ -36,7 +40,9 @@ export default class Todos extends React.Component {
         key={todo.id}
         text={todo.text}
         complete={todo.complete}
-        handleClickIcon={() => { handleClickIcon(todo.id); }}
+        favorite={todo.favorite}
+        handleClickComplete={() => { handleClickComplete(todo.id); }}
+        handleClickFavorite={() => { handleClickFavorite(todo.id, todo.favorite); }}
       />
     ));
 
