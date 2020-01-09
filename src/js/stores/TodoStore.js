@@ -49,6 +49,10 @@ class TodoStore extends EventEmitter {
     return this.todos;
   }
 
+  getFavorite() {
+    return this.todos.filter((todo) => todo.favorite === true);
+  }
+
   handleActions(action) {
     switch (action.type) {
       case 'CREATE_TODO': {
