@@ -4,22 +4,18 @@ import Todo from '../components/Todo';
 import * as TodoActions from '../actions/TodoActions';
 import TodoStore from '../stores/TodoStore';
 
-export default class Todos extends React.Component {
-  static createTodo() {
-    TodoActions.createTodo('New Todo');
-  }
-
+export default class Favorites extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: TodoStore.getAll(),
+      todos: TodoStore.getFavorite(),
     };
   }
 
   componentDidMount() {
     TodoStore.on('change', () => {
       this.setState({
-        todos: TodoStore.getAll(),
+        todos: TodoStore.getFavorite(),
       });
     });
   }
@@ -48,9 +44,13 @@ export default class Todos extends React.Component {
 
     return (
       <div>
-        <button type="button" onClick={() => Todos.createTodo()}>Create!</button>
-        <h1>Todos</h1>
-        <ul>{TodoComponents}</ul>
+        {console.log(todos)}
+        <h1>Favorites</h1>
+        {
+          todos.length
+            ? <ul>{TodoComponents}</ul>
+            : <p>登録されていません。</p>
+        }
       </div>
     );
   }

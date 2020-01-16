@@ -20,3 +20,11 @@ export function completeTodo(id) {
     id,
   });
 }
+
+export function favoriteTodo(id, favorite) {
+  dispatcher.dispatch({
+    type: 'FAVORITE_TODO',
+    id,
+    favorite,
+  });
+}
